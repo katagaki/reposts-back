@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "cypress": "^13.7.1",
+    "cypress-otp": "^1.0.3"
+  }
+}
