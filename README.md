@@ -17,12 +17,11 @@ This Cypress script will help you re-enable reposts for any follows you have on 
     - You may need to set up a new Authenticator app to obtain the OTP secret.
 3. Download a copy of your X data archive, and copy the entire array of accounts from the `data/follows.js` file into the `follows` value of the `cypress.env.json` file.
     - A single sample is provided, in the event you are unsure of what to copy.
+4. Open a new terminal in the root of the project (containing the `cypress` folder, `cypress.config.js` file, and so on).
+5. Run `npm install` to install `cypress` and `otplib`.
 
 
 # Running Cypress
-
-1. Open a new terminal in the root of the project (containing the `cypress` folder, `cypress.config.js` file, and so on).
-2. Run `npm install` to install `cypress` and `cypress-otp`.
-3. Run `npx cypress open` to open Cypress.
-4. Select `E2E Testing`.
-5. Select `Start E2E Testing in Electron`.
+1. Run `npx cypress open` to open Cypress.
+2. Select `E2E Testing`.
+3. Select `Start E2E Testing in Electron`.
