@@ -14,6 +14,9 @@
       location = "group:cypress/e2e/reposts-back.cy.js">
    </FileRef>
    <FileRef
+      location = "group:cypress/support/e2e.js">
+   </FileRef>
+   <FileRef
       location = "group:README.md">
    </FileRef>
 </Workspace>
