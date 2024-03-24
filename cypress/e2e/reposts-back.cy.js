@@ -35,10 +35,16 @@ describe('reposts-back for X', () => {
         btnNext = cy.get('span').contains('Next')
         btnNext.click()
 
+        cy.wait(2000)
+
+        cy.saveLocalStorage()
+
         // For each profile, re-enable reposts if they are off
         follows.forEach(follow => {
             var accountId = follow.following.accountId
             var userLink = follow.following.userLink
+
+            cy.restoreLocalStorage()
 
             cy.visit(userLink, {
                 headers: {
