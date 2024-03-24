@@ -4,6 +4,7 @@ describe('reposts-back for X', () => {
         var password = Cypress.env('password')
         var otpSecret = Cypress.env('otpSecret')
         var follows = Cypress.env('follows')
+        var turnOnRepostsText = Cypress.env('txtTurnOnReposts')
 
         // Authenticate
         cy.visit('https://twitter.com', {
@@ -36,31 +37,34 @@ describe('reposts-back for X', () => {
         btnNext.click()
 
         cy.wait(2000)
-
+    
         cy.saveLocalStorage()
 
         // For each profile, re-enable reposts if they are off
         follows.forEach(follow => {
-            var accountId = follow.following.accountId
-            var userLink = follow.following.userLink
+            it(`Follow: ${follow}`, () => {
+                var accountId = follow.following.accountId
+                var userLink = follow.following.userLink
 
-            cy.restoreLocalStorage()
+                cy.restoreLocalStorage()
 
-            cy.visit(userLink, {
-                headers: {
-                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36'
-                }
+                cy.visit(userLink, {
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36'
+                    }
+                })
+
+                var btnUserActionMenu = cy.get('div[data-testid="userActions"]')
+                btnUserActionMenu.click()
+
+                var mnuUserActions = cy.get('div[data-testid="Dropdown"]')
+                var btnTurnRepostsOnOrOff = mnuUserActions.children('div[role="menuitem"]').first()
+                
+                btnTurnRepostsOnOrOff.contains(turnOnRepostsText).then($body => {
+                    btnTurnRepostsOnOrOff.click()
+                    cy.get('div[role="alert"]')
+                })
             })
-
-            var btnUserActionMenu = cy.get('div[data-testid="userActions"]')
-            btnUserActionMenu.click()
-
-            var mnuUserActions = cy.get('div[data-testid="Dropdown"]')
-            var btnTurnRepostsOnOrOff = mnuUserActions.children('div[role="menuitem"]').first()
-            if (btnTurnRepostsOnOrOff.contains('Turn on Reposts')) {
-                btnTurnRepostsOnOrOff.click()
-                cy.get('div[role="alert"]')
-            }
         })
     })
 })
