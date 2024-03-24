@@ -36,7 +36,7 @@ describe('reposts-back for X', () => {
         btnNext.click()
 
         // For each profile, re-enable reposts if they are off
-        for (follow in follows) {
+        follows.forEach(follow => {
             var accountId = follow.following.accountId
             var userLink = follow.following.userLink
 
@@ -51,10 +51,10 @@ describe('reposts-back for X', () => {
 
             var mnuUserActions = cy.get('div[data-testid="Dropdown"]')
             var btnTurnRepostsOnOrOff = mnuUserActions.children('div[role="menuitem"]').first()
-            if (btnTurnRepostsOnOrOff.text().includes('Turn on Reposts')) {
+            if (btnTurnRepostsOnOrOff.contains('Turn on Reposts')) {
                 btnTurnRepostsOnOrOff.click()
                 cy.get('div[role="alert"]')
             }
-        }
+        })
     })
 })
